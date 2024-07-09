@@ -12,10 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33fedfbf6a56d6c4784336bde377e97a, type: 3}
   m_Name: CatObject
   m_EditorClassIdentifier: 
-  TowerName: 
+  towerName: 
   costInStore: 0
   costInGame: 0
   baseDamage: 3
   baseRange: 10
-  baseAttackRate: 0
-  Level: 0
+  bulletSpeed: 0
+  baseAttackRate: 10
+  maxLevel: 0
+  towerType: 0
+  towerObject: {fileID: 0}

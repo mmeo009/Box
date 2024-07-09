@@ -1,19 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using CatBoxUtils;
 
 public class GameManager : MonoBehaviour
 {
-    public enum GameState
-    {
-        GAMEPLAY,
-        GAMESTOP,
-        GAMEEXIT
-    }
+    public Enums.GameState gameState;       // 게임의 상태
+    public Enums.GameSpeed gameSpeed = Enums.GameSpeed.Default;     // 게임의 속도
 
-    public GameState state;
-
-    public static GameManager instance;
+    public static GameManager instance;     // 싱글톤
     private void Awake()
     {
         if (instance == null)
