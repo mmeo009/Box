@@ -4,6 +4,7 @@ namespace CatBoxUtils
     {
         public enum GameState       // 게임의 상태
         {
+            MAINORSHOP,
             GAMEPLAY,
             GAMESTOP,
             GAMEEXIT

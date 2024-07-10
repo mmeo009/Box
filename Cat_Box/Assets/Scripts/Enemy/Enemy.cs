@@ -35,4 +35,9 @@ public class Enemy : MonoBehaviour
     {
 
     }
+
+    private void Die()
+    {
+        PoolManager.Instance.ReturnToPool(this.gameObject);
+    }
 }

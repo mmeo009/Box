@@ -246,10 +246,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b03ac5091416b740a75ed02667d697e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pools:
-  - tag: Bullet
-    prefab: {fileID: 0}
-    size: 10
+  pools: []
 --- !u!4 &751579000
 Transform:
   m_ObjectHideFlags: 0
@@ -508,6 +505,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameState: 0
   gameSpeed: 1
+  playerData:
+    Money: 0
+    inGameMoney: 0
+    myTowers: []
+    myTowersIUse: []
+    Reroll: 1
+  saveFilePath: 
 --- !u!4 &1836625238
 Transform:
   m_ObjectHideFlags: 0

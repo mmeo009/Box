@@ -6,6 +6,7 @@ using UnityEngine;
 public class Pool
 {
     public string tag;              // pool을 구분할 tag
+    public Transform poolObject;   // 비활성화된 오브젝트들을 모아둘곳
     public GameObject prefab;       // 저장할 오브젝트
     public int size;                // pool의 최대 사이즈
     public Queue<GameObject> gameObjects = new Queue<GameObject>();
@@ -19,7 +20,6 @@ public class PoolManager : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject);
         }
         else
         {
@@ -27,7 +27,7 @@ public class PoolManager : MonoBehaviour
         }
     }
 
-    [SerializeField] private List<Pool> pools;                      // 시작전 pool들을 사전에 만들 경우 사용할 List
+    [SerializeField] private List<Pool> pools = new List<Pool>();                      // 시작전 pool들을 사전에 만들 경우 사용할 List
 
     public Dictionary<string, Pool> poolDictionary;    // pool을 찾기 편하게 Dictionary
 
@@ -45,10 +45,15 @@ public class PoolManager : MonoBehaviour
     {
         Queue<GameObject> objectPool = new Queue<GameObject>();         // FIFO (먼저 들어온애를 먼저 꺼냄) 배운거 써보고 싶어서 사용해봄
 
+        GameObject parentObject = new GameObject($"@{tag}_Pool");
+        pool.poolObject = parentObject.transform;
+
         for (int i = 0; i < pool.size; i++)                             // 먼저 입력해둔 사이즈 만큼
         {
             GameObject obj = Instantiate(pool.prefab);                  // 오브젝트를 생성
+            obj.name = pool.tag;                                        // 오브젝트의 이름 변경
             obj.SetActive(false);                                       // 비활성화 시킴
+            obj.transform.parent = pool.poolObject;                     // 저장공간에 넣어둠
             objectPool.Enqueue(obj);                                    // Queue에 추가함
         }
 
@@ -80,7 +85,9 @@ public class PoolManager : MonoBehaviour
         for (int i = 0; i < additionalSize; i++)                    // 늘린 사이즈 만큼 오브젝트를 생성해서 Queue에 추가함
         {
             GameObject obj = Instantiate(pool.prefab);
+            obj.name = pool.tag;
             obj.SetActive(false);
+            obj.transform.parent = pool.poolObject;                 
             objectPool.Enqueue(obj);
         }
 
@@ -111,6 +118,7 @@ public class PoolManager : MonoBehaviour
         }
 
         objectToSpawn.SetActive(true);                              // 오브젝트를 활성화 시킴
+        objectToSpawn.transform.parent = null;                      // 저장 공간에서 뺌
         objectToSpawn.transform.position = position;                // 위치를 이동
         objectToSpawn.transform.rotation = rotation;                // 물체를 회전
 
@@ -121,6 +129,7 @@ public class PoolManager : MonoBehaviour
 
     public void ReturnToPool(GameObject obj)                        // 오브젝트를 비 활성화 하는 함수
     {
+        obj.transform.parent = poolDictionary[obj.name].poolObject;
         obj.SetActive(false);
     }
 
