@@ -7,7 +7,7 @@ public class Enemy : MonoBehaviour
     public EnemyObject enemy;                          // scriptableObject
 
     public float hp;                                    // 몬스터의 현재 체력
-
+    public bool isStun = false;
     public Timer StunTimer = new Timer(0.0f);           // 기절 타이머
     public Timer StunCoolTimeTimer = new Timer(0.0f);   // 기절 쿨타임 타이머
 
@@ -16,11 +16,18 @@ public class Enemy : MonoBehaviour
 
     private void Update()
     {
+        float deltaTime = Time.deltaTime;
         if(GameManager.instance.gameSpeed != CatBoxUtils.Enums.GameSpeed.Pause)             // 게임이 일시정지 상태가 아닐 경우
         {
             if (!StunTimer.IsRunning() && wayPoints != null)                                // 스턴 상태가 아니고 웨이포인트가 존재할 경우
             {
                 MoveToWayPoint();               // 웨이포인트로 이동
+                StunCoolTimeTimer.Update(deltaTime, GameManager.instance.gameSpeed);
+            }
+
+            if(!StunTimer.IsRunning())
+            {
+                isStun = false;
             }
         }
     }
@@ -34,6 +41,23 @@ public class Enemy : MonoBehaviour
     private void MoveToWayPoint()
     {
 
+    }
+
+    public void Stun()
+    {
+        if (isStun) return;
+        StunTimer.Start();
+        isStun = true;
+    }
+
+    public void GetDMG(float damage)
+    {
+        hp -= damage;
+
+        if(hp <= 0)
+        {
+            Die();
+        }
     }
 
     private void Die()

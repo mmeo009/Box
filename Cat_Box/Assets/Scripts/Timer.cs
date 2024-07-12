@@ -1,9 +1,11 @@
 using UnityEngine;
 using CatBoxUtils;
+
+[System.Serializable]
 public class Timer
 {
     private float duration;                 // 동작 간격
-    private float remainingTime;            // 남은 시간
+    [SerializeField] private float remainingTime;            // 남은 시간
     private bool isRunning;                 // 동작 중인지 판단
 
     public Timer(float duration)            // 클래스 생성자 [클래스가 만들어질 때 초기화]
