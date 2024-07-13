@@ -45,7 +45,7 @@ public class PoolManager : MonoBehaviour
     {
         Queue<GameObject> objectPool = new Queue<GameObject>();         // FIFO (먼저 들어온애를 먼저 꺼냄) 배운거 써보고 싶어서 사용해봄
 
-        GameObject parentObject = new GameObject($"@{tag}_Pool");
+        GameObject parentObject = new GameObject($"@{pool.tag}_Pool");
         pool.poolObject = parentObject.transform;
 
         for (int i = 0; i < pool.size; i++)                             // 먼저 입력해둔 사이즈 만큼

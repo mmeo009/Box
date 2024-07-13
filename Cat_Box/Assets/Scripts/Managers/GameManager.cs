@@ -28,7 +28,8 @@ public class GameManager : MonoBehaviour
     private string key = "고양이는상자를조아해";  // 암호화 키
     public string saveFilePath = null;          // 세이브 경로
 
-    public Timer inGameMonyTimer = new Timer(0.5f);
+    public GameController gameController;
+
 
     public static GameManager instance;     // 싱글톤
     private void Awake()
@@ -50,14 +51,15 @@ public class GameManager : MonoBehaviour
     {
         if(gameState == Enums.GameState.GAMEPLAY)
         {
-            float deltaTime = Time.deltaTime;
-            inGameMonyTimer.Update(deltaTime, gameSpeed);
-
-            if(!inGameMonyTimer.IsRunning())
+            if(gameController ==null)
             {
-                playerData.inGameMoney ++;
-                inGameMonyTimer.Start();
+                gameController = new GameObject("@gameController").AddComponent<GameController>();
             }
+        }
+
+        if(Input.GetKeyDown(KeyCode.Space))
+        {
+            gameController.CreateTower(playerData.myTowersIUse[0], transform);
         }
     }
     // 게임 데이터 저장

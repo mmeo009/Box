@@ -14,11 +14,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   towerName: 
   costInStore: 0
-  costInGame: 0
-  baseDamage: 3
-  baseRange: 10
-  bulletSpeed: 0
-  baseAttackRate: 10
+  costInGame: 30
+  tower:
+  - baseDamage: 3
+    baseRange: 3
+    bulletSpeed: 3
+    baseAttackRate: 3
+  - baseDamage: 4
+    baseRange: 7
+    bulletSpeed: 4
+    baseAttackRate: 3
+  - baseDamage: 5.8
+    baseRange: 7.38
+    bulletSpeed: 4
+    baseAttackRate: 3
   maxLevel: 0
   towerType: 0
-  towerObject: {fileID: 0}
+  towerObject: {fileID: 6968979796623718361, guid: 76f70e789653ba84ca9929cf0b99124a, type: 3}
