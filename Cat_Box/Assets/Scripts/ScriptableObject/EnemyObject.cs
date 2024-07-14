@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using CatBoxUtils;
 
+[CreateAssetMenu(fileName = "EnemyObject", menuName = "ScriptableObject/EnemyObject")]
 public class EnemyObject : ScriptableObject
 {
     public float maxHp;             // 최대 체력

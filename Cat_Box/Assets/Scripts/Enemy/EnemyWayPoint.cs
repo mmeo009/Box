@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class EnemyWayPoint : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public bool isStartPoint;               // 스폰 포인트 인지
+    public bool isEndPoint;                 // 종료 포인트 인지
+    public int index;                       // 웨이포인트 순번
+    private void OnDrawGizmos()
     {
-        
-    }
+        Gizmos.color = Color.magenta;       // 자홍색으로
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        if (isEndPoint || isStartPoint) Gizmos.color = Color.yellow;        // 시작이나 끝인경우 노란색으로
+
+        Gizmos.DrawCube(transform.position, Vector3.one);                   // Scene창에서만 보이게 큐브로 표시
     }
 }

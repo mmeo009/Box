@@ -2,14 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
-
 public class TowerBalanceCalculator : EditorWindow
 {
     public TowerObject towerObject;
 
     public float[] towerDPS;
 
-    [MenuItem("Tool/Tower DPS Calculator")]
+    [MenuItem("CatBox/Tower DPS Calculator")]
     private static void ShwoWindow()
     {
         var window = GetWindow<TowerBalanceCalculator>();

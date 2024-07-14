@@ -31,6 +31,15 @@ namespace CatBoxUtils
             BASIC,
             ENCOURAGING
         }
+
+        public enum MoveState
+        {
+            DEFAULT,
+            MOVE,
+            STUN,
+            SLOWDOWN,
+            ARRIVE
+        }
     }
 }
 

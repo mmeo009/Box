@@ -83,8 +83,7 @@ public class TowerController : MonoBehaviour
             {
                 foreach(var enemy in enemys)
                 {
-                    enemy.GetComponent<Enemy>().Stun();
-                    enemy.GetComponent<Enemy>().GetDMG(tower.tower[towerLevel].baseDamage);
+                    enemy.GetComponent<EnemyController>().SlowDown(tower.tower[towerLevel].baseDamage, tower.tower[towerLevel].baseAttackRate);
                 }
             }
         }
@@ -199,14 +198,14 @@ public class TowerController : MonoBehaviour
                 if(proximateEnemy != null)
                 Gizmos.DrawLine(transform.position, proximateEnemy.position);        // 타워로부터 적까지 선을 그림
             }
-            else if(tower.towerType == Enums.TowerType.SLOWDOWN)   // 타워의 공격 방식이 슬로우(스턴)일 경우
+            else if(tower.towerType == Enums.TowerType.SLOWDOWN)   // 타워의 공격 방식이 슬로우일 경우
             {
 
                 for(int i = 0; i < enemys.Count; i ++)
                 {
-                    if (enemys[i].GetComponent<Enemy>().isStun)
+                    if (enemys[i].GetComponent<EnemyController>().moveState == Enums.MoveState.SLOWDOWN)
                     {
-                        Gizmos.color = Color.yellow;       // 스턴일경우 노란색으로
+                        Gizmos.color = Color.yellow;       // 슬로우 상태일 경우 노란색으로
                     }
                     else
                     {

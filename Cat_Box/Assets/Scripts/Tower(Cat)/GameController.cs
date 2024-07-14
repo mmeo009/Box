@@ -5,6 +5,9 @@ using CatBoxUtils;
 
 public class GameController : MonoBehaviour
 {
+    public int maxHp = 10;
+    public int hp = 10;
+
     public Timer inGameMonyTimer = new Timer(0.5f);
     private void Update()
     {
@@ -19,6 +22,10 @@ public class GameController : MonoBehaviour
                 inGameMonyTimer.Start();
             }
         }
+    }
+    public void GetDamage(int damage)
+    {
+        hp -= damage;
     }
     public void CreateTower(TowerObject towerObject, Transform transform)
     {
