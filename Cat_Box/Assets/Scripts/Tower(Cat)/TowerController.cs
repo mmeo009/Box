@@ -29,9 +29,10 @@ public class TowerController : MonoBehaviour
         {
             if(!isDragging)                                         // 드래그 중이 아닐때
             {
-                if (attackRateTimer != null && attackRateTimer.IsRunning())      // 타이머가 존재하고 타이머가 작동중일 때
+                float deltaTime = Time.deltaTime;                   // 시간을 가져옴
+
+                if (attackRateTimer != null)                        // 타이머가 존재한다면
                 {
-                    float deltaTime = Time.deltaTime;                   // 시간을 가져옴
 
                     attackRateTimer.Update(deltaTime, GameManager.instance.gameSpeed);      // 타이머에 시간과 현재 게임메니저의 시간상태를 가져옴
 
@@ -49,8 +50,8 @@ public class TowerController : MonoBehaviour
 
         var temp = GameObject.Instantiate(tower.towerObject);
         temp.transform.parent = this.transform;
-        temp.transform.position = Vector3.zero;
-        temp.transform.rotation = Quaternion.identity;
+        temp.transform.localPosition = Vector3.zero;
+        temp.transform.localRotation = Quaternion.identity;
 
         myTowerObject = temp;
         towerLevel = 1;
@@ -77,7 +78,7 @@ public class TowerController : MonoBehaviour
         {
             if (tower.towerType == Enums.TowerType.BASIC)   // 총알을 발사하는 기본적인 타워일 경우
             {
-                FireProjectile(Enums.TowerType.BASIC, GetProximateEnemy());
+                FireProjectile(GetProximateEnemy());
             }
             else if(tower.towerType == Enums.TowerType.SLOWDOWN)
             {
@@ -119,9 +120,19 @@ public class TowerController : MonoBehaviour
         return proximateEnemy;
     }
 
-    private void FireProjectile(Enums.TowerType tower, Transform target)
+    private void FireProjectile(Transform target)
     {
+        if(tower.towerType == Enums.TowerType.BASIC)
+        {
+            transform.LookAt(target);
 
+            var bullet = PoolManager.Instance.SpawnFromPool("Bullet", transform.position, transform.rotation);
+            bullet.GetComponent<BulletController>().myTower = this;
+            bullet.GetComponent<BulletController>().target = target.position;
+            bullet.transform.LookAt(bullet.GetComponent<BulletController>().target);
+
+            attackRateTimer.Start();
+        }
     }
     private void OnMouseDown()
     {
@@ -187,7 +198,7 @@ public class TowerController : MonoBehaviour
         }
 
         Gizmos.color = Color.blue;                  // 기즈모를 그릴 색상 파랑
-        Gizmos.DrawWireSphere(transform.position, tower.tower[towerLevel].baseAttackRate);          // 사정거리를 표시함
+        Gizmos.DrawWireSphere(transform.position, tower.tower[towerLevel].baseRange);          // 사정거리를 표시함
 
         if (enemys.Count > 0)
         {
