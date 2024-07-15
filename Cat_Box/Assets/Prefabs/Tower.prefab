@@ -53,6 +53,7 @@ MonoBehaviour:
   enemys: []
   isDragging: 0
   origin: {x: 0, y: 0, z: 0}
+  offset: {x: 0, y: 0, z: 0}
 --- !u!65 &7471688850286210085
 BoxCollider:
   m_ObjectHideFlags: 0
