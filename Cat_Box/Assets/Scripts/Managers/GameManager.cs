@@ -53,7 +53,7 @@ public class GameManager : MonoBehaviour
         {
             if(gameController ==null)
             {
-                gameController = new GameObject("@gameController").AddComponent<GameController>();
+                gameController = new GameObject("gameController").AddComponent<GameController>();
             }
         }
 

@@ -14,31 +14,31 @@ public class EnemyController : MonoBehaviour
     public Timer StunCoolTimeTimer = new Timer(0.0f);   // 기절 쿨타임 타이머
     public Timer SlowDownTimer = new Timer(0.0f);       // 슬로우 타이머
 
-    public float slowerMoveSpeed = 0;                   // 느려진 속도
+    public float moveSpeed = 0;                         // 속도
 
     public List<Transform> wayPoints;                   // 목적지들
     public int nowWayIndex = 0;                         // 지금 가고 있는 곳 인덱스
     private void Update()
     {
-        float deltaTime = Time.deltaTime;
-
-        if(moveState == Enums.MoveState.DEFAULT)
+        if(moveState == Enums.MoveState.DEFAULT)        // 상태가 기본 상태일 경우
         {
-            if(hp == 0)
+            if(hp == 0)                                 // 만약 살아있는데(총알을 맞아서 체력이 닳은게 아닌데) 체력이 0일 경우
             {
-                ResetEnemy();
+                ResetEnemy();                           // 데이터 초기화
             }
             else
             {
-                moveState = Enums.MoveState.MOVE;
+                moveState = Enums.MoveState.MOVE;       // 데이터가 있으면 이동상태로
             }
         }
 
-        if(GameManager.instance.gameSpeed != CatBoxUtils.Enums.GameSpeed.Pause)             // 게임이 일시정지 상태가 아닐 경우
+        if(GameManager.instance.gameSpeed != Enums.GameSpeed.Pause)             // 게임이 일시정지 상태가 아닐 경우
         {
+            float deltaTime = Time.deltaTime;
+
             if (moveState != Enums.MoveState.STUN && wayPoints != null)                                // 스턴 상태가 아니고 웨이포인트가 존재할 경우
             {
-                MoveToWayPoint();               // 웨이포인트로 이동
+                MoveToWayPoint(deltaTime);               // 웨이포인트로 이동
                 StunTimer.Update(deltaTime, GameManager.instance.gameSpeed);                    // 스턴 타이머 작동
                 StunCoolTimeTimer.Update(deltaTime, GameManager.instance.gameSpeed);            // 스턴 쿨타임 타이머 작동
                 SlowDownTimer.Update(deltaTime, GameManager.instance.gameSpeed);                // 슬로우 타이머 작동
@@ -57,6 +57,7 @@ public class EnemyController : MonoBehaviour
             {
                 if (moveState == Enums.MoveState.SLOWDOWN)          // 만약 슬로우 상태라면
                 {
+                    moveSpeed = enemy.moveSpeed;
                     moveState = Enums.MoveState.DEFAULT;            // 기본 상태로 변경
                 }
             }
@@ -67,20 +68,27 @@ public class EnemyController : MonoBehaviour
         hp = enemy.maxHp;               // 체력을 최대로 만듬
         StunTimer = new Timer(enemy.stunTime);                  // 스턴 타이머의 시간을 초기화
         StunCoolTimeTimer = new Timer(enemy.stunCoolTime);      // 스턴 쿨타임 타이머의 시간을 초기화
+        moveSpeed = enemy.moveSpeed;                            // 기본 이동속도로 초기화
+    }
+    public float ToNextWay()            // 지금 가고 있는 웨이포인트 까지 남은 거리를 리턴하는 함수
+    {
+        return Vector3.Distance(transform.position, wayPoints[nowWayIndex].position);
     }
 
-    private void MoveToWayPoint()
+    private void MoveToWayPoint(float deltaTime)       // 지금 가야 하는 웨이포인트로 이동하는 함수
     {
-        if(moveState == Enums.MoveState.MOVE)
+        if(GameManager.instance.gameSpeed == Enums.GameSpeed.Fast)
         {
-            transform.position = Vector3.MoveTowards(transform.position, wayPoints[nowWayIndex].position, enemy.moveSpeed * Time.deltaTime);
+            deltaTime *= 2;
         }
-        else if(moveState == Enums.MoveState.SLOWDOWN)
+        else if (GameManager.instance.gameSpeed == Enums.GameSpeed.Slow)
         {
-            transform.position = Vector3.MoveTowards(transform.position, wayPoints[nowWayIndex].position, slowerMoveSpeed * Time.deltaTime);
+            deltaTime /= 2;
         }
 
-        if(IsReached())
+        transform.position = Vector3.MoveTowards(transform.position, wayPoints[nowWayIndex].position, moveSpeed * deltaTime);
+
+        if (IsReached())
         {
             if(wayPoints.Count < nowWayIndex + 2)
             {
@@ -127,7 +135,7 @@ public class EnemyController : MonoBehaviour
     public void SlowDown(float amount, float time)
     {
         if (moveState == Enums.MoveState.SLOWDOWN || moveState == Enums.MoveState.SLOWDOWN) return;
-        if (enemy.moveSpeed - amount <= 0) slowerMoveSpeed = 0.1f;
+        if (enemy.moveSpeed - amount <= 0) moveSpeed = 0.1f;
 
         SlowDownTimer = new Timer(time <= 0 ? 1 : time);
         SlowDownTimer.Start();

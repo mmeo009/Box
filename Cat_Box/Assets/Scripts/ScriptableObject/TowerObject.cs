@@ -17,17 +17,17 @@ public class TowerObject : ScriptableObject
     public Enums.TowerType towerType;   // 타워의 타입
 
     public GameObject towerObject;      // 타워 게임 오브젝트
-
+    public GameObject bulletObject;     // 총알 게임 오브젝트
 }
 [System.Serializable]
 public class TowerStat
 {
     [Range(0, 30)]
     public float baseDamage;            // 기본 데미지
-    [Range(0, 10)]
+    [Range(1, 10)]
     public float baseRange;             // 기본 사거리
-    [Range(0, 10)]
+    [Range(8, 20)]
     public float bulletSpeed;           // 총알의 속도
-    [Range(0, 10000)]
+    [Range(0, 200)]
     public float baseAttackRate;        // 기본 공격 속도 (공격 사이의 시간)
 }

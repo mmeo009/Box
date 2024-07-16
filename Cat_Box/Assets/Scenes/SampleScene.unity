@@ -518,67 +518,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &974717572
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 2149264843625418210, guid: 1220c05ab7b0c654e944fdfcc92b5ddb, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 2.26
-      objectReference: {fileID: 0}
-    - target: {fileID: 2149264843625418210, guid: 1220c05ab7b0c654e944fdfcc92b5ddb, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2149264843625418210, guid: 1220c05ab7b0c654e944fdfcc92b5ddb, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2149264843625418210, guid: 1220c05ab7b0c654e944fdfcc92b5ddb, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2149264843625418210, guid: 1220c05ab7b0c654e944fdfcc92b5ddb, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2149264843625418210, guid: 1220c05ab7b0c654e944fdfcc92b5ddb, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2149264843625418210, guid: 1220c05ab7b0c654e944fdfcc92b5ddb, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2149264843625418210, guid: 1220c05ab7b0c654e944fdfcc92b5ddb, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2149264843625418210, guid: 1220c05ab7b0c654e944fdfcc92b5ddb, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2149264843625418210, guid: 1220c05ab7b0c654e944fdfcc92b5ddb, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2982804602095504629, guid: 1220c05ab7b0c654e944fdfcc92b5ddb, type: 3}
-      propertyPath: m_Name
-      value: Tower
-      objectReference: {fileID: 0}
-    - target: {fileID: 7891580184936355132, guid: 1220c05ab7b0c654e944fdfcc92b5ddb, type: 3}
-      propertyPath: tower
-      value: 
-      objectReference: {fileID: 11400000, guid: c2fad7684b2e4964a870285ac6ebc594, type: 2}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 1220c05ab7b0c654e944fdfcc92b5ddb, type: 3}
 --- !u!1 &1044406195
 GameObject:
   m_ObjectHideFlags: 0
@@ -707,6 +646,10 @@ MonoBehaviour:
     BeforeSpawnTime: 3
   - enemyObject: {fileID: 11400000, guid: 20ef41dd81d27a64d80b80995aeda627, type: 2}
     BeforeSpawnTime: 3
+  - enemyObject: {fileID: 11400000, guid: 20ef41dd81d27a64d80b80995aeda627, type: 2}
+    BeforeSpawnTime: 3
+  - enemyObject: {fileID: 11400000, guid: 20ef41dd81d27a64d80b80995aeda627, type: 2}
+    BeforeSpawnTime: 3
   nowMonsterIndex: 0
   beforeSpawnTimeTimer:
     remainingTime: 0
@@ -803,7 +746,7 @@ MonoBehaviour:
     inGameMoney: 0
     myTowers: []
     myTowersIUse:
-    - {fileID: 11400000, guid: 1a5533ca19bab57488717a9803a1ef30, type: 2}
+    - {fileID: 11400000, guid: c2fad7684b2e4964a870285ac6ebc594, type: 2}
     Reroll: 1
   saveFilePath: 
   gameController: {fileID: 0}
@@ -834,4 +777,3 @@ SceneRoots:
   - {fileID: 1225181518}
   - {fileID: 68608717}
   - {fileID: 1687932658}
-  - {fileID: 974717572}

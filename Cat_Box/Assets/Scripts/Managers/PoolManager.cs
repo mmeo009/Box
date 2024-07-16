@@ -41,7 +41,7 @@ public class PoolManager : MonoBehaviour
         }
     }
 
-    public void CreatePool(Pool pool)
+    private void CreatePool(Pool pool)
     {
         Queue<GameObject> objectPool = new Queue<GameObject>();         // FIFO (먼저 들어온애를 먼저 꺼냄) 배운거 써보고 싶어서 사용해봄
 

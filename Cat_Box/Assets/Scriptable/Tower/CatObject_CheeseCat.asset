@@ -16,14 +16,15 @@ MonoBehaviour:
   costInStore: 0
   costInGame: 0
   tower:
-  - baseDamage: 2
+  - baseDamage: 3
     baseRange: 6
-    bulletSpeed: 2
+    bulletSpeed: 10
     baseAttackRate: 2
   - baseDamage: 4
     baseRange: 6
-    bulletSpeed: 2
+    bulletSpeed: 10
     baseAttackRate: 2
   maxLevel: 2
   towerType: 0
   towerObject: {fileID: 919132149155446097, guid: c8092647e236fbe4a8caa61a31c1d7d6, type: 3}
+  bulletObject: {fileID: 0}
