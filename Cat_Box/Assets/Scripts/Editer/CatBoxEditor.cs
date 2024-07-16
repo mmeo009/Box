@@ -63,5 +63,10 @@ public class EnemyManagerEditor : Editor
         {
             enemyManager.ResetEnemyWayPoints();
         }
+
+        if(GUILayout.Button("WayPointsRePosition"))
+        {
+            enemyManager.WayPointsRePosition();
+        }
     }
 }

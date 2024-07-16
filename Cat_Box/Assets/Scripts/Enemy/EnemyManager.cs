@@ -115,6 +115,13 @@ public class EnemyManager : MonoBehaviour
 
         enemyWayPoints.Clear();
     }
+    public void WayPointsRePosition()
+    {
+        foreach(EnemyWayPoint wayPoint in enemyWayPoints)
+        {
+            wayPoint.transform.position = new Vector3(Mathf.Round(wayPoint.transform.position.x) + 0.5f, 0, Mathf.Round(wayPoint.transform.position.z) + 0.5f);
+        }
+    }
 
     public EnemyController GetActiveEnemyControllerByTransfrom(Transform enemyTransfrom)            // 트랜스폼을 통해 적 컨트롤러를 가져오는 함수
     {
