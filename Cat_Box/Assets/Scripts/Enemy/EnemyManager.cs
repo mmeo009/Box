@@ -12,12 +12,26 @@ public class EnemyData
 public class EnemyManager : MonoBehaviour
 {
     [Header("이번 스테이지에 나올 몬스터들")] public List<EnemyData> enemyDatas = new List<EnemyData>();                  // 이번 스테이지에 나올 몬스터들
+    public HashSet<EnemyController> activeEnemies = new HashSet<EnemyController>();                                     // 지금 생성되어있는 몬스터들
     public int nowMonsterIndex = 0;                                                                                     // 지금 몬스터 순서
-    public Timer beforeSpawnTimeTimer = new Timer(0.0f);                                              // 몬스터 스폰 사이의 쿨타임
+    public Timer beforeSpawnTimeTimer = new Timer(0.0f);                                                                // 몬스터 스폰 사이의 쿨타임
 
     public List<EnemyWayPoint> enemyWayPoints = new List<EnemyWayPoint>();                                              // 적 웨이포인트 (수정할 때 사용)
     public Transform spawnPoint;                                                                                        // 스폰 포인트
-    public List<Transform> wayPoints;                                                                 // 적 웨이포인트들을 저장한 리스트
+    public List<Transform> wayPoints;                                                                                   // 적 웨이포인트들을 저장한 리스트
+
+    public static EnemyManager Instance;
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(this);
+        }
+    }
 
     public void Start()
     {
@@ -92,12 +106,29 @@ public class EnemyManager : MonoBehaviour
         enemy.enemy = enemyObject;                  // 적에게 해당하는 ScriptableObject를 넣어줌
         enemy.ResetEnemy();                         // 적의 데이터를 초기화 시킴
         enemy.wayPoints = wayPoints;                // 적에게 웨이포인트를 넣어줌
+        activeEnemies.Add(enemy);                   // 지금 활성화된 몬스터 리스트에 추가함
     }
 
-    public void ResetEnemyWayPoints()
+    public void ResetEnemyWayPoints()               // 모든 웨이포인트들을 제거하는 함수
     {
         DestroyImmediate(enemyWayPoints[0].gameObject.transform.parent);
 
         enemyWayPoints.Clear();
+    }
+
+    public EnemyController GetActiveEnemyControllerByTransfrom(Transform enemyTransfrom)            // 트랜스폼을 통해 적 컨트롤러를 가져오는 함수
+    {
+        foreach(EnemyController enemyController in activeEnemies)
+        {
+            if (enemyController.transform == enemyTransfrom)
+                return enemyController;
+        }
+
+        return null;
+    }
+
+    public bool IsEnemyActive(EnemyController enemyController)          // 이 적이 활성화 되어있는지 확인하는 함수
+    {
+        return activeEnemies.Contains(enemyController);
     }
 }

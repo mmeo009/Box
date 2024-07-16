@@ -2,27 +2,32 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using CatBoxUtils;
+using DG.Tweening;
 
 public class BulletController : MonoBehaviour
 {
     public TowerController myTower;         // 이 총알을 발사한 타워
     public Vector3 target;                  // 내가 날라갈 타겟
+    public Tweener moveTween;               // 움직임 트윈
     void Update()
     {
         if(GameManager.instance.gameSpeed != Enums.GameSpeed.Pause)
         {
+            if (moveTween != null)
+                moveTween.Kill();
+
             // 게임 속도에 따른 총알 속도 변경
-            if(GameManager.instance.gameSpeed == Enums.GameSpeed.Slow)
+            if (GameManager.instance.gameSpeed == Enums.GameSpeed.Slow)
             {
-                transform.position = Vector3.MoveTowards(transform.position, target, myTower.towerObject.tower[myTower.towerLevel -1].bulletSpeed / 2 * Time.deltaTime);
+                moveTween = transform.DOMove(target, Vector3.Distance(transform.position, target) / (myTower.towerObject.tower[myTower.towerLevel - 1].bulletSpeed / 2));
             }
             else if(GameManager.instance.gameSpeed == Enums.GameSpeed.Fast)
             {
-                transform.position = Vector3.MoveTowards(transform.position, target, myTower.towerObject.tower[myTower.towerLevel - 1].bulletSpeed * 2 * Time.deltaTime);
+                moveTween = transform.DOMove(target, Vector3.Distance(transform.position, target) / (myTower.towerObject.tower[myTower.towerLevel - 1].bulletSpeed * 2));
             }
             else
             {
-                transform.position = Vector3.MoveTowards(transform.position, target, myTower.towerObject.tower[myTower.towerLevel -1].bulletSpeed * Time.deltaTime);
+                moveTween = transform.DOMove(target, Vector3.Distance(transform.position, target) / myTower.towerObject.tower[myTower.towerLevel - 1].bulletSpeed);
             }
 
             // 총알이 포탑 사거리 밖으로 나갔을 경우 제거

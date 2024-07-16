@@ -5,7 +5,7 @@ using CatBoxUtils;
 
 public class EnemyController : MonoBehaviour
 {
-    public EnemyObject enemy;                          // scriptableObject
+    public EnemyObject enemy;                           // scriptableObject
 
     public float hp;                                    // 몬스터의 현재 체력
     public Enums.MoveState moveState = Enums.MoveState.DEFAULT;        // 몬스터의 현재 동작 상태
@@ -155,6 +155,7 @@ public class EnemyController : MonoBehaviour
 
     private void Die()
     {
+        EnemyManager.Instance.activeEnemies.Remove(this);
         PoolManager.Instance.ReturnToPool(this.gameObject);
     }
 }

@@ -45,6 +45,7 @@ public class CatBoxEditor
         else
         {
             temp.name = $"WayPoint{manager.enemyWayPoints.Count}";
+            temp.index = manager.enemyWayPoints.Count;
         }
 
         manager.enemyWayPoints.Add(temp);
