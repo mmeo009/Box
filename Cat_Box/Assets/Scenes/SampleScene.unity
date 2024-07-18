@@ -267,7 +267,7 @@ Transform:
   m_GameObject: {fileID: 261903857}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1, y: 0, z: 2.91}
+  m_LocalPosition: {x: 1, y: 0.1, z: 2.91}
   m_LocalScale: {x: 1, y: 0.2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -299,7 +299,7 @@ Transform:
   m_GameObject: {fileID: 542722954}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 5.5, y: 0, z: 0.5}
+  m_LocalPosition: {x: 6.5, y: 0.5, z: 0.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -643,7 +643,7 @@ Transform:
   m_GameObject: {fileID: 935705701}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.5, y: 0, z: 6.5}
+  m_LocalPosition: {x: 0.5, y: 0.5, z: 6.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -782,7 +782,7 @@ Transform:
   m_GameObject: {fileID: 1044406195}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.5, y: 0, z: 0.5}
+  m_LocalPosition: {x: -1.5, y: 0.5, z: 0.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -829,7 +829,7 @@ Transform:
   m_GameObject: {fileID: 1067579134}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 4.5, y: 0, z: 3.5}
+  m_LocalPosition: {x: 4.5, y: 0.5, z: 4.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -880,6 +880,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyDatas:
+  - enemyObject: {fileID: 11400000, guid: 20ef41dd81d27a64d80b80995aeda627, type: 2}
+    BeforeSpawnTime: 3
+  - enemyObject: {fileID: 11400000, guid: 20ef41dd81d27a64d80b80995aeda627, type: 2}
+    BeforeSpawnTime: 3
+  - enemyObject: {fileID: 11400000, guid: 20ef41dd81d27a64d80b80995aeda627, type: 2}
+    BeforeSpawnTime: 3
+  - enemyObject: {fileID: 11400000, guid: 20ef41dd81d27a64d80b80995aeda627, type: 2}
+    BeforeSpawnTime: 3
+  - enemyObject: {fileID: 11400000, guid: 20ef41dd81d27a64d80b80995aeda627, type: 2}
+    BeforeSpawnTime: 3
+  - enemyObject: {fileID: 11400000, guid: 20ef41dd81d27a64d80b80995aeda627, type: 2}
+    BeforeSpawnTime: 3
+  - enemyObject: {fileID: 11400000, guid: 20ef41dd81d27a64d80b80995aeda627, type: 2}
+    BeforeSpawnTime: 3
   - enemyObject: {fileID: 11400000, guid: 20ef41dd81d27a64d80b80995aeda627, type: 2}
     BeforeSpawnTime: 3
   - enemyObject: {fileID: 11400000, guid: 20ef41dd81d27a64d80b80995aeda627, type: 2}

@@ -56,7 +56,7 @@ public class MergeTower : MonoBehaviour
 
                 if (towerGrid.myTower == null)
                 {
-                    transform.position = new Vector3(towerGrid.transform.position.x, towerGrid.transform.position.y + 0.4f, towerGrid.transform.position.z);       // 그리드가 있으면 그리드 위치로
+                    transform.position = new Vector3(towerGrid.transform.position.x, towerGrid.transform.position.y + 0.5f, towerGrid.transform.position.z);       // 그리드가 있으면 그리드 위치로
                     origin = Vector3.zero;             // 기존 위치 관련 정보 초기화
                     towerGrid.myTower = tower;
                     return;

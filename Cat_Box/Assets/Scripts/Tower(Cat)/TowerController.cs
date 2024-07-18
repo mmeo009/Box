@@ -80,9 +80,12 @@ public class TowerController : MonoBehaviour
             {
                 Gizmos.color = Color.red;           // 빨간색으로
                 Transform proximateEnemy = targetEnemy.transform;
+
                 if (proximateEnemy != null)
+                {
                     Gizmos.DrawLine(transform.position, proximateEnemy.position);        // 타워로부터 적까지 선을 그림
-                Gizmos.DrawSphere(new Vector3(proximateEnemy.position.x, proximateEnemy.position.y + 1, proximateEnemy.position.z), 0.3f);        // 공격 범위 내의 적에게 구를 그림
+                    Gizmos.DrawSphere(new Vector3(proximateEnemy.position.x, proximateEnemy.position.y + 1, proximateEnemy.position.z), 0.3f);        // 공격 범위 내의 적에게 구를 그림
+                }
             }
             else if (towerObject.towerType == Enums.TowerType.SLOWDOWN)   // 타워의 공격 방식이 슬로우일 경우
             {
@@ -205,7 +208,7 @@ public class TowerController : MonoBehaviour
     {
         if (rotateTweener != null && rotateTweener.IsActive())
             rotateTweener.Kill();
-        rotateTweener = transform.DORotateQuaternion(Quaternion.LookRotation(target.position - transform.position), 0.3f);
+        rotateTweener = transform.DORotateQuaternion(Quaternion.LookRotation(new Vector3(target.position.x, transform.position.y, target.position.z) - transform.position), 0.3f);
     }
 
     private void FireProjectile(Transform target)                                   // 총알 발사

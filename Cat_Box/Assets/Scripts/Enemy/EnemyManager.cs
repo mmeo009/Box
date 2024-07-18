@@ -119,7 +119,7 @@ public class EnemyManager : MonoBehaviour
     {
         foreach(EnemyWayPoint wayPoint in enemyWayPoints)
         {
-            wayPoint.transform.position = new Vector3(Mathf.Round(wayPoint.transform.position.x) + 0.5f, 0, Mathf.Round(wayPoint.transform.position.z) + 0.5f);
+            wayPoint.transform.position = new Vector3(Mathf.Round(wayPoint.transform.position.x) + 0.5f, 0.5f, Mathf.Round(wayPoint.transform.position.z) + 0.5f);
         }
     }
 
