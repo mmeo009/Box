@@ -4,5 +4,5 @@ using UnityEngine;
 
 public class TowerGrid : MonoBehaviour
 {
-    TowerController myTower;
+    public TowerController myTower;
 }
