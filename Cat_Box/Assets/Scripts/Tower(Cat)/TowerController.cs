@@ -28,8 +28,6 @@ public class TowerController : MonoBehaviour
             }
         }
         merge.tower = this;
-
-        OnCreated(towerObject);
     }
     void Update()
     {
@@ -215,11 +213,11 @@ public class TowerController : MonoBehaviour
     {
         if(towerObject.towerType == Enums.TowerType.BASIC)                          // 기본 총알의 경우
         {
-            if(!PoolManager.Instance.HasThisPool("Bullet"))                         // 만약 풀이 없으면 생성
+            if(!PoolManager.Instance.HasThisPool(towerObject.bulletObject.name))                         // 만약 풀이 없으면 생성
             {
-                PoolManager.Instance.AddNewPool("Bullet", towerObject.bulletObject, 10);
+                PoolManager.Instance.AddNewPool(towerObject.bulletObject.name, towerObject.bulletObject, 10);
             }
-            var bullet = PoolManager.Instance.SpawnFromPool("Bullet", transform.position, transform.rotation);      // 풀에서 총알 생성
+            var bullet = PoolManager.Instance.SpawnFromPool(towerObject.bulletObject.name, transform.position, transform.rotation);      // 풀에서 총알 생성
 
             BulletController bulletController;
 

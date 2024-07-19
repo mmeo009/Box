@@ -8,6 +8,7 @@ public class MergeTower : MonoBehaviour
     public TowerController tower;       // 타워 컨트롤러
 
     public Vector3 origin;              // 원래 포지션 (드래그 실패시 돌아가야 하니까)
+    public TowerGrid originGrid;        // 원래 그리드
     public Vector3 offset;
     private void OnMouseDown()
     {
@@ -38,7 +39,15 @@ public class MergeTower : MonoBehaviour
                     if (CheckMerge(towerController))        // 머지 가능한지 확인하고 가능할 경우
                     {
                         towerController.towerLevel++;       // 그 타워의 레벨을 올림
+                        towerController.merge.originGrid.ChangeBoxObject(towerController.towerLevel);
                         tower.towerLevel = 0;                     // 나의 레벨은 초기화
+
+                        if (originGrid != null)
+                        {
+                            originGrid.myTower = null;
+                            originGrid.ChangeBoxObject(1);
+                        }
+
                         PoolManager.Instance.ReturnToPool(this.gameObject); // 이 오브젝트를 제거
                         return;     // 반복문 종료
                     }
@@ -56,9 +65,17 @@ public class MergeTower : MonoBehaviour
 
                 if (towerGrid.myTower == null)
                 {
-                    transform.position = new Vector3(towerGrid.transform.position.x, towerGrid.transform.position.y + 0.5f, towerGrid.transform.position.z);       // 그리드가 있으면 그리드 위치로
+                    transform.position = new Vector3(towerGrid.transform.position.x, towerGrid.transform.position.y + 0.7f, towerGrid.transform.position.z);       // 그리드가 있으면 그리드 위치로
                     origin = Vector3.zero;             // 기존 위치 관련 정보 초기화
+
+                    if (originGrid != null)
+                    {
+                        originGrid.myTower = null;
+                        originGrid.ChangeBoxObject(1);
+                    }
+
                     towerGrid.myTower = tower;
+                    originGrid = towerGrid;
                     return;
                 }
             }
@@ -66,15 +83,26 @@ public class MergeTower : MonoBehaviour
 
         if(origin != null)
         {
-            transform.position = origin;       // 머지가 불가능 할경우 기존 위치로 옮김
-            origin = Vector3.zero;             // 기존 위치 관련 정보 초기화
+            OnMoveFail();
         }
         else
         {
             GameManager.instance.playerData.inGameMoney += tower.towerObject.costInGame;
+
+            if (originGrid != null)
+            {
+                originGrid.myTower = null;
+                originGrid.ChangeBoxObject(1);
+            }
+
             PoolManager.Instance.ReturnToPool(this.gameObject); // 이 오브젝트를 제거
         }
 
+    }
+    private void OnMoveFail()
+    {
+        transform.position = origin;       // 머지가 불가능 할경우 기존 위치로 옮김
+        origin = Vector3.zero;             // 기존 위치 관련 정보 초기화
     }
     private bool CheckMerge(TowerController hit)
     {
