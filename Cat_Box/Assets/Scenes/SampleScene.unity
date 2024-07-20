@@ -874,8 +874,8 @@ MonoBehaviour:
     inGameMoney: 0
     myTowers: []
     myTowersIUse:
-    - {fileID: 11400000, guid: c2fad7684b2e4964a870285ac6ebc594, type: 2}
-    - {fileID: 11400000, guid: fd0fbca8cdd3cf04c90204b922dfe2e5, type: 2}
+    - {fileID: 11400000, guid: 8dee2a6193009b34db9a34c8b7d26045, type: 2}
+    - {fileID: 11400000, guid: ea6a663d280bc524c83d24300fe6b0ae, type: 2}
     - {fileID: 11400000, guid: 6aab58be6803fa64eab0825a0dc128d2, type: 2}
     Reroll: 1
   saveFilePath: 

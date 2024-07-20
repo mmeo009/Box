@@ -33,8 +33,12 @@ public class TowerGrid : MonoBehaviour
 
     public void OnDrawGizmos()
     {
-        Gizmos.color = Color.green;
+        if(!Application.isPlaying)
+        {
+            Gizmos.color = Color.green;
 
-        Gizmos.DrawCube(transform.position, new Vector3(1, 0.5f, 1));
+            Gizmos.DrawCube(transform.position, new Vector3(1, 0.5f, 1));
+        }
+
     }
 }

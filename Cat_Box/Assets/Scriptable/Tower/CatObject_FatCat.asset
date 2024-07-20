@@ -10,25 +10,29 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 33fedfbf6a56d6c4784336bde377e97a, type: 3}
-  m_Name: CatObject_TinkleCat
+  m_Name: CatObject_FatCat
   m_EditorClassIdentifier: 
-  towerName: TinkleCat
+  towerName: FatCat
   costInStore: 50
-  costInGame: 35
+  costInGame: 10
   tower:
+  - baseDamage: 1
+    baseRange: 8
+    bulletSpeed: 8
+    baseAttackRate: 0.5
+  - baseDamage: 1
+    baseRange: 8
+    bulletSpeed: 8
+    baseAttackRate: 0.5
+  - baseDamage: 1
+    baseRange: 8
+    bulletSpeed: 8
+    baseAttackRate: 0.5
   - baseDamage: 2
-    baseRange: 5
+    baseRange: 8
     bulletSpeed: 8
-    baseAttackRate: 1
-  - baseDamage: 3
-    baseRange: 5
-    bulletSpeed: 8
-    baseAttackRate: 1
-  - baseDamage: 4
-    baseRange: 5
-    bulletSpeed: 8
-    baseAttackRate: 1
+    baseAttackRate: 0.5
   maxLevel: 3
   towerType: 2
-  towerObject: {fileID: 919132149155446097, guid: ea7bfee230d22b249af8b607d144319e, type: 3}
+  towerObject: {fileID: 919132149155446097, guid: df43e4492982d904cb223ef239fce425, type: 3}
   bulletObject: {fileID: 0}

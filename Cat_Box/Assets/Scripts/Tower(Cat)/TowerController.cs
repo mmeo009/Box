@@ -70,7 +70,7 @@ public class TowerController : MonoBehaviour
         }
 
         Gizmos.color = Color.blue;                  // 기즈모를 그릴 색상 파랑
-        Gizmos.DrawWireSphere(transform.position, towerObject.tower[towerLevel].baseRange);          // 사정거리를 표시함
+        Gizmos.DrawWireSphere(transform.position, towerObject.tower[towerLevel - 1].baseRange);          // 사정거리를 표시함
 
         if (enemies.Count > 0)
         {
