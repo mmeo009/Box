@@ -40,6 +40,11 @@ namespace CatBoxUtils
             SLOWDOWN,
             ARRIVE
         }
+        public enum TowerButtonType
+        {
+            Store,
+            InGame
+        }
     }
 }
 

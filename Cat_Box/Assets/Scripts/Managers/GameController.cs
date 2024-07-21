@@ -27,9 +27,9 @@ public class GameController : MonoBehaviour
     {
         hp -= damage;
     }
-    public void CreateTower(TowerObject towerObject, Transform transform)
+    public void CreateTower(TowerObject towerObject, Vector3 position)
     {
-        var tower = PoolManager.Instance.SpawnFromPool("Tower", transform.position, transform.rotation);
+        var tower = PoolManager.Instance.SpawnFromPool("Tower", position, Quaternion.identity);
         tower.GetComponent<TowerController>().OnCreated(towerObject);
         GameManager.instance.playerData.inGameMoney -= towerObject.costInGame;
     }

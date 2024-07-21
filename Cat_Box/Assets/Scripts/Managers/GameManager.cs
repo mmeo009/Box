@@ -57,20 +57,7 @@ public class GameManager : MonoBehaviour
             }
         }
 
-        if(Input.GetKeyDown(KeyCode.Q))
-        {
-            gameController.CreateTower(playerData.myTowersIUse[0], transform);
-        }
 
-        if (Input.GetKeyDown(KeyCode.W))
-        {
-            gameController.CreateTower(playerData.myTowersIUse[1], transform);
-        }
-
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            gameController.CreateTower(playerData.myTowersIUse[2], transform);
-        }
     }
     // 게임 데이터 저장
     private void SaveGmaeData(PlayerData data)
