@@ -29,7 +29,7 @@ public class GameController : MonoBehaviour
     }
     public void CreateTower(TowerObject towerObject, Vector3 position)
     {
-        var tower = PoolManager.Instance.SpawnFromPool("Tower", position, Quaternion.identity);
+        var tower = PoolManager.Instance.SpawnFromPool("Tower", new Vector3(position.x, position.y + 0.7f, position.z), Quaternion.identity);
         tower.GetComponent<TowerController>().OnCreated(towerObject);
         GameManager.instance.playerData.inGameMoney -= towerObject.costInGame;
     }

@@ -36,7 +36,7 @@ public class BulletController : MonoBehaviour
                 DestroyBullet();
             }
             // 총알이 타겟에 도달하였을경우 제거
-            if(Vector3.Distance(transform.position, target) <= 0.1f)
+            if(Vector3.Distance(transform.position, target) <= 0.01f)
             {
                 DestroyBullet();
             }

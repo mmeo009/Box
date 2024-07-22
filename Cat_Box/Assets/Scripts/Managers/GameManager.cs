@@ -54,6 +54,7 @@ public class GameManager : MonoBehaviour
             if(gameController ==null)
             {
                 gameController = new GameObject("gameController").AddComponent<GameController>();
+                Camera.main.gameObject.AddComponent<CameraZoom>();
             }
         }
 

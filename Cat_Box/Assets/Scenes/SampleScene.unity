@@ -388,7 +388,15 @@ MonoBehaviour:
     size: 5
   - tag: Bullet
     poolObject: {fileID: 0}
-    prefab: {fileID: 8504913149984537822, guid: 46c3a128956db0145bd2ab53fb7ff5f5, type: 3}
+    prefab: {fileID: 2632754383828485807, guid: 98ce1cba0f545294cb2d7b96e4f310e0, type: 3}
+    size: 10
+  - tag: Potato
+    poolObject: {fileID: 0}
+    prefab: {fileID: 3400770644348602564, guid: a8cd0708154563349bc5989b9c07062c, type: 3}
+    size: 10
+  - tag: Can
+    poolObject: {fileID: 0}
+    prefab: {fileID: 2632754383828485807, guid: 9511419a7b49a2543a0fee56ab92bb97, type: 3}
     size: 10
 --- !u!4 &751579000
 Transform:

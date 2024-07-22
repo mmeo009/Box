@@ -18,17 +18,7 @@ public class TowerController : MonoBehaviour
     public EnemyController targetEnemy; // 공격할 적
 
     private Tweener rotateTweener;
-    private void Start()
-    {
-        if(merge == null)
-        {
-            if(!TryGetComponent<MergeTower>(out merge))
-            {
-                merge = gameObject.AddComponent<MergeTower>();
-            }
-        }
-        merge.tower = this;
-    }
+
     void Update()
     {
         if(GameManager.instance.gameSpeed != Enums.GameSpeed.Pause) // 게임이 일시정지 상태가 아닐경우
@@ -106,6 +96,16 @@ public class TowerController : MonoBehaviour
     }
     public void OnCreated(TowerObject towerObject)
     {
+
+        if (merge == null)
+        {
+            if (!TryGetComponent<MergeTower>(out merge))
+            {
+                merge = gameObject.AddComponent<MergeTower>();
+            }
+        }
+        merge.tower = this;
+
         this.towerObject = towerObject;
 
         var temp = GameObject.Instantiate(this.towerObject.towerObject);
@@ -119,6 +119,8 @@ public class TowerController : MonoBehaviour
 
         attackRateTimer = new Timer(this.towerObject.tower[towerLevel - 1].baseAttackRate);          // 타워오브젝트의 공격 속도를 가져옴
         attackRateTimer.Start();                                                          // 타이머를 작동시킴
+        merge.isFirst = true;
+        merge.isDragging = true;
     }
     private void Attack()
     {
