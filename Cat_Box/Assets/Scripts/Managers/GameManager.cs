@@ -51,7 +51,7 @@ public class GameManager : MonoBehaviour
     {
         if(gameState == Enums.GameState.GAMEPLAY)
         {
-            if(gameController ==null)
+            if(gameController == null)
             {
                 gameController = new GameObject("gameController").AddComponent<GameController>();
                 Camera.main.gameObject.AddComponent<CameraZoom>();
@@ -60,6 +60,7 @@ public class GameManager : MonoBehaviour
 
 
     }
+
     // 게임 데이터 저장
     private void SaveGmaeData(PlayerData data)
     {

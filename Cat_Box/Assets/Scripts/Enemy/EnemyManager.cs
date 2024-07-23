@@ -123,17 +123,6 @@ public class EnemyManager : MonoBehaviour
         }
     }
 
-    public EnemyController GetActiveEnemyControllerByTransfrom(Transform enemyTransfrom)            // 트랜스폼을 통해 적 컨트롤러를 가져오는 함수
-    {
-        foreach(EnemyController enemyController in activeEnemies)
-        {
-            if (enemyController.transform == enemyTransfrom)
-                return enemyController;
-        }
-
-        return null;
-    }
-
     public bool IsEnemyActive(EnemyController enemyController)          // 이 적이 활성화 되어있는지 확인하는 함수
     {
         return activeEnemies.Contains(enemyController);

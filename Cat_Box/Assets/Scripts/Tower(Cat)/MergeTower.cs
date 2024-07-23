@@ -109,6 +109,7 @@ public class MergeTower : MonoBehaviour
                     }
 
                     towerGrid.myTower = tower;          // 새로운 그리드에 나를 넣음
+                    towerGrid.ChangeBoxObject(tower.towerLevel);
                     originGrid = towerGrid;             // 새로운 그리드를 내 그리드로
 
                     return;

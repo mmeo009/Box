@@ -14,7 +14,7 @@ public class TowerController : MonoBehaviour
 
     public Timer attackRateTimer;       // 타워의 공격 속도를 계산할 타이머
 
-    public List<Transform> enemies;     // 공격할 적들의 리스트 (사정거리 이내의 적들)
+    public List<EnemyController> enemies;     // 공격할 적들의 리스트 (사정거리 이내의 적들)
     public EnemyController targetEnemy; // 공격할 적
 
     private Tweener rotateTweener;
@@ -80,7 +80,7 @@ public class TowerController : MonoBehaviour
 
                 for (int i = 0; i < enemies.Count; i++)
                 {
-                    if (enemies[i].GetComponent<EnemyController>().moveState == Enums.MoveState.SLOWDOWN)
+                    if (enemies[i].moveState == Enums.MoveState.SLOWDOWN)
                     {
                         Gizmos.color = Color.yellow;       // 슬로우 상태일 경우 노란색으로
                     }
@@ -144,7 +144,7 @@ public class TowerController : MonoBehaviour
 
             foreach (var enemy in enemies)
             {
-                EnemyManager.Instance.GetActiveEnemyControllerByTransfrom(enemy).SlowDown(towerObject.tower[towerLevel - 1].baseDamage, towerObject.tower[towerLevel - 1].baseAttackRate);
+                enemy.SlowDown(towerObject.tower[towerLevel - 1].baseDamage, towerObject.tower[towerLevel - 1].baseAttackRate);
             }
 
             attackRateTimer.Start();                        // 타이머를 초기화 함
@@ -153,55 +153,53 @@ public class TowerController : MonoBehaviour
 
     private void GetEnemiesTransformInRange()
     {
-        var colliders = Physics.OverlapSphere(transform.position, towerObject.tower[towerLevel - 1].baseRange);         // 사정거리 이내의 모든 오브젝트를 가져옴
-
         enemies.Clear();                         // 적 리스트 초기화
 
-        foreach (var enemy in colliders)
+        foreach (var enemy in EnemyManager.Instance.activeEnemies)          // 살아있는 모든 적을 가져옴
         {
-            if (enemy.tag == "Enemy")            // 테그가 적일 경우
+            if(Vector3.Distance(transform.position, enemy.transform.position) <= towerObject.tower[towerLevel -1].baseRange)        // 사거리 안에 있는지 확인
             {
-                enemies.Add(enemy.transform);    // 적 리스트에 추가
+                enemies.Add(enemy);    // 사거리 안이라면 적 리스트에 추가
             }
         }
 
-        targetEnemy = EnemyManager.Instance.GetActiveEnemyControllerByTransfrom(GetProximateEnemy());
+        targetEnemy = GetProximateEnemy();   // 타겟으로 가장 가까운 적을 넣어둠
     }
-    private Transform GetProximateEnemy()
+    private EnemyController GetProximateEnemy()
     {
         if (enemies.Count == 0) return null;
 
-        var proximateEnemy = EnemyManager.Instance.GetActiveEnemyControllerByTransfrom(enemies[0]);
+        var proximateEnemy = enemies[0];
         float minDistance = towerObject.tower[towerLevel - 1].baseRange + 1f;
 
         if(enemies.Count == 1)
         {
-            return proximateEnemy.transform;
+            return proximateEnemy;
         }
         
         foreach (var enemy in enemies)
         {
             float distance = Vector3.Distance(transform.position, enemy.transform.position);        // 적과 타워의 거리를 계산
-            var _enemyController = EnemyManager.Instance.GetActiveEnemyControllerByTransfrom(enemy);
 
-            if(_enemyController != null)
+
+            if(enemy != null)
             {
                 if (distance < minDistance)             // 적과의 거리를 가장 가까운 거리와 비교하였을때
                 {
-                    if (_enemyController.nowWayIndex > proximateEnemy.nowWayIndex)                       // 만약 가까운 적이 더 많이 웨이포인트를 지난 친구일 경우
+                    if (enemy.nowWayIndex > proximateEnemy.nowWayIndex)                       // 만약 가까운 적이 더 많이 웨이포인트를 지난 친구일 경우
                     {
                         minDistance = distance;                 // 더 적다면 가장 가까운 거리를 지금 적과의 거리로 변경
-                        proximateEnemy = _enemyController;      // 지금 적을 가장 가까운 적으로 갱신
+                        proximateEnemy = enemy;      // 지금 적을 가장 가까운 적으로 갱신
                     }
-                    else if (_enemyController.nowWayIndex == proximateEnemy.nowWayIndex && _enemyController.ToNextWay() > proximateEnemy.ToNextWay())   // 인덱스가 같고 더 다음 웨이포인트 까지 가까울 경우
+                    else if (enemy.nowWayIndex == proximateEnemy.nowWayIndex && enemy.ToNextWay() > proximateEnemy.ToNextWay())   // 인덱스가 같고 더 다음 웨이포인트 까지 가까울 경우
                     {
                         minDistance = distance;                 // 더 적다면 가장 가까운 거리를 지금 적과의 거리로 변경
-                        proximateEnemy = _enemyController;      // 지금 적을 가장 가까운 적으로 갱신
+                        proximateEnemy = enemy;      // 지금 적을 가장 가까운 적으로 갱신
                     }
                 }
             }
         }
-        return proximateEnemy.transform;
+        return proximateEnemy;
     }
 
     private void RotateTower(Transform target)

@@ -20,6 +20,15 @@ public class TowerButton : MonoBehaviour
     }
     public void ChangeButtonData(TowerObject newTowerObject)
     {
+        towerObject = newTowerObject;
+
+        if (newTowerObject == null)
+        {
+            button.GetComponentInChildren<TMP_Text>().text = "NULL";
+            return;
+        }
+
         button.onClick.AddListener(() => GameManager.instance.gameController.CreateTower(towerObject, Vector3.zero));
+        button.GetComponentInChildren<TMP_Text>().text = towerObject.towerName + "\n" + ((towerButtonType == Enums.TowerButtonType.InGame) ? towerObject.costInGame : towerObject.costInStore);
     }
 }

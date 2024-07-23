@@ -77,43 +77,44 @@ public class EnemyController : MonoBehaviour
 
     private void MoveToWayPoint(float deltaTime)       // 지금 가야 하는 웨이포인트로 이동하는 함수
     {
-        if(GameManager.instance.gameSpeed == Enums.GameSpeed.Fast)
+        if(GameManager.instance.gameSpeed == Enums.GameSpeed.Fast)          // 게임 속도가 2배일 때
         {
             deltaTime *= 2;
         }
-        else if (GameManager.instance.gameSpeed == Enums.GameSpeed.Slow)
+        else if (GameManager.instance.gameSpeed == Enums.GameSpeed.Slow)        // 게임 속도가 0.5배일 때
         {
             deltaTime /= 2;
         }
 
-        transform.position = Vector3.MoveTowards(transform.position, wayPoints[nowWayIndex].position, moveSpeed * deltaTime);
+        transform.position = Vector3.MoveTowards(transform.position, wayPoints[nowWayIndex].position, moveSpeed * deltaTime);       // 이동
 
-        if (IsReached())
+        if (IsReached())        // 웨이 포인트에 도착했다면
         {
-            if(wayPoints.Count < nowWayIndex + 2)
+            if(wayPoints.Count < nowWayIndex + 2)       // 만약 마지만 웨이포인트라면
             {
-                Attack();
-                Die();
+                Attack();       // 본체(플레이어의 체력을 깎음)
+                Die(true);          // 사망
             }
             else
             {
-                nowWayIndex++;
+                nowWayIndex++;  // 다음 웨이포인트로
             }
         }
 
-        transform.LookAt(wayPoints[nowWayIndex]);
+        transform.LookAt(wayPoints[nowWayIndex]);       // 다음 웨이포인트 방향으로 바라봄
     }
 
     private bool IsReached()
     {
-        if(Vector3.Distance(transform.position, wayPoints[nowWayIndex].position) < 0.01f)
+        if(Vector3.Distance(transform.position, wayPoints[nowWayIndex].position) < 0.01f)       // 0.01보다 가깝다면
         {
+            transform.position = wayPoints[nowWayIndex].position;       // 웨이 포인트 위치로 적의 위치를 이동 시킴
             return true;
         }
         return false;
     }
 
-    private void Attack()
+    private void Attack()           // 체력을 깎음
     {
         GameManager.instance.gameController.GetDamage(enemy.damage);
     }
@@ -153,8 +154,12 @@ public class EnemyController : MonoBehaviour
         }
     }
 
-    private void Die()
+    private void Die(bool isSelf = false)
     {
+        if (!isSelf)
+        {
+            GameManager.instance.playerData.inGameMoney += enemy.reward;
+        }
         EnemyManager.Instance.activeEnemies.Remove(this);
         PoolManager.Instance.ReturnToPool(this.gameObject);
     }
