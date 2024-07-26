@@ -13,6 +13,7 @@ public class GameController : MonoBehaviour
 
     public Timer inGameMonyTimer = new Timer(0.5f);
     public List<TowerButton> inGameTowerButton = new List<TowerButton>();
+    private TowerController lastTower;
 
     private void Start()
     {
@@ -58,8 +59,20 @@ public class GameController : MonoBehaviour
             return;
         }
 
+        if(lastTower != null)
+        {
+            if(lastTower.isActiveAndEnabled)
+            {
+                if (lastTower.merge.isFirst)
+                {
+                    return;
+                }
+            }
+        }
+
         var tower = PoolManager.Instance.SpawnFromPool("Tower", new Vector3(position.x, position.y + 0.7f, position.z), Quaternion.identity);
-        tower.GetComponent<TowerController>().OnCreated(towerObject);
+        lastTower = tower.GetComponent<TowerController>();
+        lastTower.OnCreated(towerObject);
         GameManager.instance.playerData.inGameMoney -= towerObject.costInGame;
     }
 }
