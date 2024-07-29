@@ -28,7 +28,22 @@ public class CatBoxEditor
     [MenuItem("CatBox/GameObject/WayPoint", priority = 1)]
     static void CreateWayPoint()
     {
-        if (wayPoints == null) wayPoints = new GameObject("WayPoints");
+        if (manager == null)
+        {
+            CreateMonsterManager();
+        }
+
+        if (wayPoints == null)
+        {
+            if(manager.enemyWayPoints.Count != 0)
+            {
+                wayPoints = manager.enemyWayPoints[0].transform.parent.gameObject;
+            }
+            else
+            {
+                wayPoints = new GameObject("WayPoints");
+            }
+        }
 
         var temp = new GameObject("WayPoint").AddComponent<EnemyWayPoint>();
         temp.transform.parent = wayPoints.transform;
