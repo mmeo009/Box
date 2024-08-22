@@ -69,23 +69,30 @@ public class PlaceBlocks : EditorWindow
                         for (int k = from.z; k <= to.z; k++)
                         {
                             var position = new Vector3(i, j, k);
-                            var temp = Instantiate(prefabs[selectedPrefabName], position, Quaternion.identity);
+                            var temp = (GameObject)PrefabUtility.InstantiatePrefab(prefabs[selectedPrefabName]);
+                            Undo.RegisterCreatedObjectUndo(temp, "Instantiate Prefab");
+                            Selection.activeGameObject = temp;
                             temp.transform.position = new Vector3(i, j, k);
+                            temp.transform.rotation = Quaternion.identity;
                         }
-
                     }
                 }
                 for (int k = from.z; k <= to.z; k++)
                 {
+                    var temp = (GameObject)PrefabUtility.InstantiatePrefab(prefabs[selectedPrefabName]);
+                    Undo.RegisterCreatedObjectUndo(temp, "Instantiate Prefab");
+                    Selection.activeGameObject = temp;
                     var position = new Vector3(i, 0, k);
-                    var temp = Instantiate(prefabs[selectedPrefabName], position, Quaternion.identity);
                     temp.transform.position = new Vector3(i, 0, k);
+                    temp.transform.rotation = Quaternion.identity;
                 }
             }
         }
         else
         {
-            var temp = Instantiate(prefabs[selectedPrefabName]);
+            var temp = (GameObject)PrefabUtility.InstantiatePrefab(prefabs[selectedPrefabName]);
+            Undo.RegisterCreatedObjectUndo(temp, "Instantiate Prefab");
+            Selection.activeGameObject = temp;
             temp.transform.position = positionToPlace;
         }
 
@@ -96,21 +103,24 @@ public class PlaceBlocks : EditorWindow
 
     private void OnGUI()
     {
+        // 상단 버튼 영역
         GUILayout.BeginHorizontal();
 
-        if(GUILayout.Button("프리팹 불러오기"))
+        if (GUILayout.Button("프리팹 불러오기"))
         {
             LoadPrefabsDatas();
         }
 
-        if(GUILayout.Button("생성하기"))
+        if (GUILayout.Button("생성하기"))
         {
             CreatePrefab();
         }
 
         GUILayout.EndHorizontal();
+
         GUILayout.Space(10);
 
+        // 중앙 정보 입력 영역
         GUILayout.BeginVertical();
 
         GUILayout.BeginHorizontal();
@@ -119,7 +129,7 @@ public class PlaceBlocks : EditorWindow
 
         if (selectedPrefabName != null)
         {
-            GUILayout.Label("선택된 오브젝트 :" +  selectedPrefabName);
+            GUILayout.Label("선택된 오브젝트 :" + selectedPrefabName);
         }
 
         GUILayout.EndHorizontal();
@@ -132,19 +142,24 @@ public class PlaceBlocks : EditorWindow
         }
 
         EditorGUILayout.EndToggleGroup();
+
         GUILayout.EndVertical();
 
         GUILayout.Space(10);
 
+        // 하단 프리팹 선택 버튼 영역
         GUILayout.BeginVertical();
 
-        foreach(var prefab in prefabs)
+        foreach (var prefab in prefabs)
         {
-            if(GUILayout.Button(prefab.Key))
+            if (GUILayout.Button(prefab.Key))
             {
                 SelectPrefab(prefab.Key);
             }
         }
+
+        GUILayout.EndVertical();
     }
+
 
 }
