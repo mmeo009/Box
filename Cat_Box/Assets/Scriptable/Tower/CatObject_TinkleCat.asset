@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33fedfbf6a56d6c4784336bde377e97a, type: 3}
   m_Name: CatObject_TinkleCat
   m_EditorClassIdentifier: 
-  towerName: TinkleCat
+  towerName: "\uC810\uBC15\uC774"
   costInStore: 50
   costInGame: 35
   tower:
@@ -32,3 +32,4 @@ MonoBehaviour:
   towerType: 2
   towerObject: {fileID: 919132149155446097, guid: ea7bfee230d22b249af8b607d144319e, type: 3}
   bulletObject: {fileID: 0}
+  towerImage: {fileID: 21300000, guid: 819585a53ebf5974fae0ca243193526d, type: 3}

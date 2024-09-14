@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33fedfbf6a56d6c4784336bde377e97a, type: 3}
   m_Name: CatObject_MachineGunCat
   m_EditorClassIdentifier: 
-  towerName: MachineGunCat
+  towerName: "\uCD1D\uB0E5\uC774"
   costInStore: 120
   costInGame: 80
   tower:
@@ -36,3 +36,4 @@ MonoBehaviour:
   towerType: 0
   towerObject: {fileID: 919132149155446097, guid: f2801cb06dfbe314aa91fc5cb56d2b33, type: 3}
   bulletObject: {fileID: 2632754383828485807, guid: 98ce1cba0f545294cb2d7b96e4f310e0, type: 3}
+  towerImage: {fileID: 21300000, guid: 91f3fb9e6d7b9ad46b6ef0fec0aa7ccd, type: 3}

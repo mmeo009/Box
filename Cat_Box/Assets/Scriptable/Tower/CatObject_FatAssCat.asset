@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33fedfbf6a56d6c4784336bde377e97a, type: 3}
   m_Name: CatObject_FatAssCat
   m_EditorClassIdentifier: 
-  towerName: FatAssCat
+  towerName: "\uB6B1 \uB0E5\uC774"
   costInStore: 80
   costInGame: 40
   tower:
@@ -36,3 +36,4 @@ MonoBehaviour:
   towerType: 0
   towerObject: {fileID: 919132149155446097, guid: bf7f090da67bba44591deac5c77b1d2b, type: 3}
   bulletObject: {fileID: 2632754383828485807, guid: 9511419a7b49a2543a0fee56ab92bb97, type: 3}
+  towerImage: {fileID: 21300000, guid: 58771f091c4a79e4da5e68f4fc3003ce, type: 3}

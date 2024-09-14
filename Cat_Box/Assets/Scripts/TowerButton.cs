@@ -9,12 +9,19 @@ public class TowerButton : MonoBehaviour
     public Enums.TowerButtonType towerButtonType;
     public TowerObject towerObject;
     public Button button;
-    private void Start()
+    public TMP_Text[] texts;
+    public Image towerImage;
+    private Dictionary<string, TMP_Text> textDictionary = new Dictionary<string, TMP_Text>();
+    private void Awake()
     {
-        TryGetComponent<Button>(out button);
-        if (button == null)
+        if (!TryGetComponent<Button>(out button))
         {
             button = gameObject.AddComponent<Button>();
+        }
+
+        foreach(var text in texts)
+        {
+            textDictionary.Add(text.gameObject.name, text);
         }
         button.onClick.AddListener(() => GameManager.instance.gameController.CreateTower(towerObject, Vector3.zero));
     }
@@ -24,11 +31,51 @@ public class TowerButton : MonoBehaviour
 
         if (newTowerObject == null)
         {
-            button.GetComponentInChildren<TMP_Text>().text = "NULL";
+            textDictionary["Name_Text"].text = "NULL";
             return;
         }
 
-        button.onClick.AddListener(() => GameManager.instance.gameController.CreateTower(towerObject, Vector3.zero));
-        button.GetComponentInChildren<TMP_Text>().text = towerObject.towerName + "\n" + ((towerButtonType == Enums.TowerButtonType.InGame) ? towerObject.costInGame : towerObject.costInStore);
+        if(towerButtonType == Enums.TowerButtonType.InGame)
+        {
+            button.onClick.AddListener(() => GameManager.instance.gameController.CreateTower(towerObject, Vector3.zero));
+            textDictionary["Cost_Text"].text = towerObject.costInGame.ToString();
+        }
+        else
+        {
+            // TODO : 구매 로직
+            // button.onClick.AddListener(() => GameManager.instance.gameController.CreateTower(towerObject, Vector3.zero));
+            textDictionary["Cost_Text"].text = towerObject.costInStore.ToString();
+        }
+
+        towerImage.sprite = towerObject.towerImage;
+        textDictionary["AttackDamage_Text"].text = StstsByString(towerObject, Enums.TowerStatType.DAMAGE);
+        textDictionary["AttackSpeed_Text"].text = StstsByString(towerObject, Enums.TowerStatType.ATTACKRATE);
+        textDictionary["Range_Text"].text = StstsByString(towerObject, Enums.TowerStatType.RANGE);
+        textDictionary["Name_Text"].text = towerObject.towerName;
+    }
+
+    private string StstsByString(TowerObject towerObject, Enums.TowerStatType statType)
+    {
+        string result = "";
+
+        foreach(var stat in towerObject.tower)
+        {
+            switch(statType)
+            {
+                case Enums.TowerStatType.DAMAGE:
+                    result += stat.baseDamage.ToString() + "/ ";
+                    break;
+                case Enums.TowerStatType.ATTACKRATE:
+                    result += stat.baseAttackRate.ToString() + "/ ";
+                    break;
+                case Enums.TowerStatType.RANGE:
+                    result += stat.baseRange.ToString() + "/ ";
+                    break;
+                default:
+                    result += "00/ ";
+                    break;
+            }
+        }
+        return result;
     }
 }

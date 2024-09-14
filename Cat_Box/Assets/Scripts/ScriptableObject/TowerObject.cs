@@ -18,6 +18,7 @@ public class TowerObject : ScriptableObject
 
     public GameObject towerObject;      // 타워 게임 오브젝트
     public GameObject bulletObject;     // 총알 게임 오브젝트
+    public Sprite towerImage;           // 타워의 이미지
 }
 [System.Serializable]
 public class TowerStat

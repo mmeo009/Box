@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33fedfbf6a56d6c4784336bde377e97a, type: 3}
   m_Name: CatObject_PotatoCat
   m_EditorClassIdentifier: 
-  towerName: PotatoCat
+  towerName: "\uAC10\uC790"
   costInStore: 0
   costInGame: 30
   tower:
@@ -32,3 +32,4 @@ MonoBehaviour:
   towerType: 0
   towerObject: {fileID: 919132149155446097, guid: 113be888e40ac224f969d73f390151ff, type: 3}
   bulletObject: {fileID: 3400770644348602564, guid: a8cd0708154563349bc5989b9c07062c, type: 3}
+  towerImage: {fileID: 21300000, guid: d195bfe57ac18dc47bbc50e447eef4ea, type: 3}

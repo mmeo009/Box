@@ -45,6 +45,13 @@ namespace CatBoxUtils
             Store,
             InGame
         }
+        public enum TowerStatType
+        {
+            DAMAGE,
+            RANGE,
+            ATTACKRATE,
+            BULLETSPEED
+        }
     }
 }
 
