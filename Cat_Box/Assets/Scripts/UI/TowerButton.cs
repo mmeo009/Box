@@ -76,6 +76,6 @@ public class TowerButton : MonoBehaviour
                     break;
             }
         }
-        return result;
+        return result.TrimEnd(' ').TrimEnd('/');
     }
 }

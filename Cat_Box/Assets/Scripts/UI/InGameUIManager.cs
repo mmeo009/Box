@@ -1,10 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
+using UnityEngine.UI;
 
-public class TowerButtonManager : MonoBehaviour
+public class InGameUIManager : MonoBehaviour
 {
     public List<TowerButton> buttons = new List<TowerButton>();
+    public TMP_Text moneyText;
+    public TMP_Text healthText;
     private GameManager gameManager;
     void Start()
     {
@@ -21,8 +25,9 @@ public class TowerButtonManager : MonoBehaviour
             }
         }
     }
-    void Update()
+    private void Update()
     {
-        
+        moneyText.text = string.Format("{0:#,###}", gameManager.playerData.inGameMoney);
+        healthText.text = string.Format("{0}/{1}", gameManager.gameController.hp, gameManager.gameController.maxHp);
     }
 }

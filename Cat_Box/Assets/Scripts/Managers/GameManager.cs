@@ -29,7 +29,8 @@ public class GameManager : MonoBehaviour
     public string saveFilePath = null;          // 세이브 경로
 
     public GameController gameController;
-
+    // 게임에 등장하는 타워들
+    public List<TowerObject> towers = new List<TowerObject>();
 
     public static GameManager instance;     // 싱글톤
     private void Awake()
