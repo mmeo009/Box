@@ -23,7 +23,11 @@ public class TowerButton : MonoBehaviour
         {
             textDictionary.Add(text.gameObject.name, text);
         }
-        button.onClick.AddListener(() => GameManager.instance.gameController.CreateTower(towerObject, Vector3.zero));
+
+        if(towerButtonType == Enums.TowerButtonType.InGame)
+        {
+            button.onClick.AddListener(() => GameManager.instance.gameController.CreateTower(towerObject, Vector3.zero));
+        }
     }
     public void ChangeButtonData(TowerObject newTowerObject)
     {
@@ -42,9 +46,7 @@ public class TowerButton : MonoBehaviour
         }
         else
         {
-            // TODO : 구매 로직
-            // button.onClick.AddListener(() => GameManager.instance.gameController.CreateTower(towerObject, Vector3.zero));
-            textDictionary["Cost_Text"].text = towerObject.costInStore.ToString();
+            textDictionary["Cost_Text"].text = towerObject.costInGame.ToString() + "/" + towerObject.costInStore.ToString();
         }
 
         towerImage.sprite = towerObject.towerImage;
