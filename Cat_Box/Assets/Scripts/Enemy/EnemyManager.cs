@@ -48,12 +48,17 @@ public class EnemyManager : MonoBehaviour
         float deltaTime = Time.deltaTime;
         beforeSpawnTimeTimer.Update(deltaTime, GameManager.instance.gameSpeed);
 
-        if(!beforeSpawnTimeTimer.IsRunning() && enemyDatas.Count >= nowMonsterIndex + 2)
+        if(!beforeSpawnTimeTimer.IsRunning() && enemyDatas.Count > nowMonsterIndex + 1)
         {
             SpawnEnemy(enemyDatas[nowMonsterIndex].enemyObject);
             nowMonsterIndex++;
             beforeSpawnTimeTimer = new Timer(enemyDatas[nowMonsterIndex].BeforeSpawnTime);
             beforeSpawnTimeTimer.Start();
+        }
+
+        if(enemyDatas.Count == nowMonsterIndex + 1 && activeEnemies.Count < 1 && GameManager.instance.hp > 0)
+        {
+            GameManager.instance.StageClear();
         }
     }
     public bool SetWayPoints()

@@ -73,6 +73,23 @@ public class GameManager : MonoBehaviour
                 ChangeMoney(Enums.MoneyType.INGAME, 1);
                 inGameMonyTimer.Start();
             }
+
+            if (Input.GetKeyDown(KeyCode.Alpha1))
+            {
+                gameSpeed = Enums.GameSpeed.Pause;
+            }
+            else if (Input.GetKeyDown(KeyCode.Alpha2))
+            {
+                gameSpeed = Enums.GameSpeed.Slow;
+            }
+            else if (Input.GetKeyDown(KeyCode.Alpha3))
+            {
+                gameSpeed = Enums.GameSpeed.Default;
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha4))
+            {
+                gameSpeed = Enums.GameSpeed.Fast;
+            }
         }
     }
     public void ChangeMoney(Enums.MoneyType moneyType, int amount)
@@ -101,6 +118,18 @@ public class GameManager : MonoBehaviour
         {
             return;
         }
+    }
+    public void StageClear()
+    {
+        if(maxHp - hp > 5)
+        {
+            playerData.Money += EnemyManager.Instance.enemyDatas.Count + maxHp - hp;
+        }
+        else
+        {
+            playerData.Money += EnemyManager.Instance.enemyDatas.Count;
+        }
+        OnGameClear?.Invoke();
     }
 
     public void GetDamage(int damage)
