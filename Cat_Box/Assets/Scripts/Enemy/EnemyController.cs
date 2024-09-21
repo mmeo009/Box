@@ -116,7 +116,7 @@ public class EnemyController : MonoBehaviour
 
     private void Attack()           // 체력을 깎음
     {
-        GameManager.instance.gameController.GetDamage(enemy.damage);
+        GameManager.instance.GetDamage(enemy.damage);
     }
 
     public void Stun()

@@ -633,7 +633,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: a117ec3a5384a954ca53c486f65e276e, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -689,7 +689,6 @@ MonoBehaviour:
     myTowersIUse: []
     Reroll: 1
   saveFilePath: 
-  gameController: {fileID: 0}
   towers:
   - {fileID: 11400000, guid: c2fad7684b2e4964a870285ac6ebc594, type: 2}
   - {fileID: 11400000, guid: 8dee2a6193009b34db9a34c8b7d26045, type: 2}
@@ -697,6 +696,11 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 1a5533ca19bab57488717a9803a1ef30, type: 2}
   - {fileID: 11400000, guid: fd0fbca8cdd3cf04c90204b922dfe2e5, type: 2}
   - {fileID: 11400000, guid: 6aab58be6803fa64eab0825a0dc128d2, type: 2}
+  maxHp: 10
+  hp: 10
+  inGameMonyTimer:
+    remainingTime: 0.5
+  inGameTowerButton: []
 --- !u!4 &230857704
 Transform:
   m_ObjectHideFlags: 0

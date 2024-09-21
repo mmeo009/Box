@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: CatObject_PotatoCat
   m_EditorClassIdentifier: 
   towerName: "\uAC10\uC790"
-  costInStore: 0
-  costInGame: 30
+  costInStore: 30
+  costInGame: 35
   tower:
   - baseDamage: 5
     baseRange: 5

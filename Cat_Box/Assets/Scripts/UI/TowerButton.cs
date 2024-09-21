@@ -26,7 +26,7 @@ public class TowerButton : MonoBehaviour
 
         if(towerButtonType == Enums.TowerButtonType.InGame)
         {
-            button.onClick.AddListener(() => GameManager.instance.gameController.CreateTower(towerObject, Vector3.zero));
+            button.onClick.AddListener(() => GameManager.instance.CreateTower(towerObject, Vector3.zero));
         }
     }
     public void ChangeButtonData(TowerObject newTowerObject)
@@ -41,7 +41,7 @@ public class TowerButton : MonoBehaviour
 
         if(towerButtonType == Enums.TowerButtonType.InGame)
         {
-            button.onClick.AddListener(() => GameManager.instance.gameController.CreateTower(towerObject, Vector3.zero));
+            button.onClick.AddListener(() => GameManager.instance.CreateTower(towerObject, Vector3.zero));
             textDictionary["Cost_Text"].text = towerObject.costInGame.ToString();
         }
         else

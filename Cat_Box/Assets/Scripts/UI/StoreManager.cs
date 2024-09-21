@@ -11,10 +11,17 @@ public class StoreManager : MonoBehaviour
     public List<TowerButton> buttons = new List<TowerButton>();
     [SerializeField] private List<TowerObject> selectedObjects = new List<TowerObject>();
     private GameManager gameManager;
+    private void OnEnable()
+    {
+        GameManager.OnMoneyChanged += UpdateMoney;
+    }
+    private void OnDisable()
+    {
+        GameManager.OnMoneyChanged -= UpdateMoney;
+    }
     void Start()
     {
         gameManager = GameManager.instance;
-        moneyText.text = string.Format("{0:#,###}", gameManager.playerData.Money);
         ReFreshStore();
         StartCoroutine(IE_ShowText("어서 오시게 꼬맹이"));
     }
@@ -22,7 +29,7 @@ public class StoreManager : MonoBehaviour
     {
         if(gameManager.playerData.Money >= selectedObjects[index].costInStore)
         {
-            gameManager.playerData.Money -= selectedObjects[index].costInStore;
+            gameManager.ChangeMoney(CatBoxUtils.Enums.MoneyType.INSTORE, selectedObjects[index].costInStore * -1);
             gameManager.playerData.myTowers.Add(selectedObjects[index]);
 
             if(gameManager.playerData.Money == 0)
@@ -48,8 +55,6 @@ public class StoreManager : MonoBehaviour
                         break;
                 }
             }
-
-            moneyText.text = string.Format("{0:#,###}", gameManager.playerData.Money);
             // TODO : 구매 사운드
             Invoke("ReFreshStore", 1.0f);
         }
@@ -147,6 +152,11 @@ public class StoreManager : MonoBehaviour
 
         return temp;
     }
+    private void UpdateMoney()
+    {
+        moneyText.text = string.Format("{0:#,###}", gameManager.playerData.Money);
+    }
+
     private IEnumerator IE_ShowText(string text)
     {
         ownerText.text = "<color=#00FFFB>사장님</color>\n";

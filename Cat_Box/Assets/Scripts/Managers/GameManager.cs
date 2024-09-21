@@ -28,11 +28,24 @@ public class GameManager : MonoBehaviour
     private string key = "고양이는상자를조아해";  // 암호화 키
     public string saveFilePath = null;          // 세이브 경로
 
-    public GameController gameController;
     // 게임에 등장하는 타워들
     public List<TowerObject> towers = new List<TowerObject>();
 
     public static GameManager instance;     // 싱글톤
+
+    public static event Action OnInGameMoneyChanged;
+    public static event Action OnMoneyChanged;
+    public static event Action OnHealthChanged;
+    public static event Action OnGameClear;
+    public static event Action OnGameOver;
+
+    public int maxHp = 10;
+    public int hp = 10;
+
+    public Timer inGameMonyTimer = new Timer(0.5f);
+    public List<TowerButton> inGameTowerButton = new List<TowerButton>();
+    private TowerController lastTower;
+
     private void Awake()
     {
         if (instance == null)
@@ -52,14 +65,80 @@ public class GameManager : MonoBehaviour
     {
         if(gameState == Enums.GameState.GAMEPLAY)
         {
-            if(gameController == null)
+            float deltaTime = Time.deltaTime;
+            inGameMonyTimer.Update(deltaTime, gameSpeed);
+
+            if (!inGameMonyTimer.IsRunning())
             {
-                gameController = new GameObject("gameController").AddComponent<GameController>();
-                Camera.main.gameObject.AddComponent<CameraZoom>();
+                ChangeMoney(Enums.MoneyType.INGAME, 1);
+                inGameMonyTimer.Start();
+            }
+        }
+    }
+    public void ChangeMoney(Enums.MoneyType moneyType, int amount)
+    {
+        if(moneyType == Enums.MoneyType.INGAME)
+        {
+            playerData.inGameMoney += amount;
+
+            if (playerData.inGameMoney <= 0)
+            {
+                playerData.inGameMoney = 0;
+            }
+            OnInGameMoneyChanged?.Invoke();
+        }
+        else if(moneyType == Enums.MoneyType.INSTORE)
+        {
+            playerData.Money += amount;
+
+            if (playerData.Money <= 0)
+            {
+                playerData.Money = 0;
+            }
+            OnMoneyChanged?.Invoke();
+        }
+        else
+        {
+            return;
+        }
+    }
+
+    public void GetDamage(int damage)
+    {
+        if (gameState == Enums.GameState.GAMEPLAY)
+        {
+            hp -= damage;
+            OnHealthChanged?.Invoke();
+            if(hp <= 0)
+            {
+                OnGameOver?.Invoke();
+            }
+        }
+    }
+
+    public void CreateTower(TowerObject towerObject, Vector3 position)
+    {
+        if (GameManager.instance.playerData.inGameMoney < towerObject.costInGame)
+        {
+            return;
+        }
+
+        if (lastTower != null)
+        {
+            if (lastTower.isActiveAndEnabled)
+            {
+                if (lastTower.merge.isFirst)
+                {
+                    return;
+                }
             }
         }
 
+        var tower = PoolManager.Instance.SpawnFromPool("Tower", new Vector3(position.x, position.y + 0.7f, position.z), Quaternion.identity);
+        lastTower = tower.GetComponent<TowerController>();
+        lastTower.OnCreated(towerObject);
 
+        ChangeMoney(Enums.MoneyType.INGAME, towerObject.costInGame * -1);
     }
 
     // 게임 데이터 저장

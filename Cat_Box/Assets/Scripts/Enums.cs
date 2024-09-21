@@ -52,6 +52,11 @@ namespace CatBoxUtils
             ATTACKRATE,
             BULLETSPEED
         }
+        public enum MoneyType
+        {
+            INGAME,
+            INSTORE
+        }
     }
 }
 

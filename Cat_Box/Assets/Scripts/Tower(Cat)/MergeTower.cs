@@ -127,7 +127,7 @@ public class MergeTower : MonoBehaviour
     }
     private void DestroyThisTower()
     {
-        GameManager.instance.playerData.inGameMoney += tower.towerObject.costInGame;
+        GameManager.instance.ChangeMoney(CatBoxUtils.Enums.MoneyType.INGAME, tower.towerObject.costInGame);
 
         if (originGrid != null)
         {
