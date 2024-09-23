@@ -4,7 +4,8 @@ namespace CatBoxUtils
     {
         public enum GameState       // 게임의 상태
         {
-            MAINORSHOP,
+            MAIN,
+            SHOP,
             GAMEPLAY,
             GAMESTOP,
             GAMEEXIT
@@ -40,10 +41,14 @@ namespace CatBoxUtils
             SLOWDOWN,
             ARRIVE
         }
-        public enum TowerButtonType
+        public enum ButtonType
         {
-            Store,
-            InGame
+            TOWER_STORE,
+            TOWER_INGAME,
+            SETTING,
+            INFO,
+            BACK,
+            RESTART
         }
         public enum TowerStatType
         {

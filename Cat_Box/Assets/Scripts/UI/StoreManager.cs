@@ -9,6 +9,8 @@ public class StoreManager : MonoBehaviour
     public TMP_Text ownerText;
     public TMP_Text moneyText;
     public List<TowerButton> buttons = new List<TowerButton>();
+    public DialogueObject greet, buyTower, cantBuy, empty;
+
     [SerializeField] private List<TowerObject> selectedObjects = new List<TowerObject>();
     private GameManager gameManager;
     private void OnEnable()
@@ -23,7 +25,8 @@ public class StoreManager : MonoBehaviour
     {
         gameManager = GameManager.instance;
         ReFreshStore();
-        StartCoroutine(IE_ShowText("어서 오시게 꼬맹이"));
+        int randomIndex = Random.Range(0, greet.dialogues.Count);
+        StartCoroutine(IE_ShowText(greet.dialogues[randomIndex]));
     }
     public void BuyTower(int index)
     {
@@ -42,43 +45,16 @@ public class StoreManager : MonoBehaviour
             }
             else
             {
-                switch (Random.Range(0, 3))
-                {
-                    case 0:
-                        StartCoroutine(IE_ShowText("좋은 거래였다네"));
-                        break;
-                    case 1:
-                        StartCoroutine(IE_ShowText("이거 내가 아끼던 친구인데 아쉽게 되었구만"));
-                        break;
-                    case 2:
-                        StartCoroutine(IE_ShowText("이 고양이 만큼은 팔고 싶지 않았는데..."));
-                        break;
-                }
+                int randomIndex = Random.Range(0, buyTower.dialogues.Count);
+                StartCoroutine(IE_ShowText(buyTower.dialogues[randomIndex]));
             }
             // TODO : 구매 사운드
             Invoke("ReFreshStore", 1.0f);
         }
         else
         {
-            switch (Random.Range(0, 5))
-            {
-                case 0:
-                    StartCoroutine(IE_ShowText("이봐 나도 깎아주고 싶은데 이미 손해보는 장사라고"));
-                    break;
-                case 1:
-                    StartCoroutine(IE_ShowText("다른 고양이도 많은데 왜 이걸 사려는겐가?"));
-                    break;
-                case 2:
-                    StartCoroutine(IE_ShowText("내가 팔고싶지 않아서 안파는게 아니라고"));
-                    break;
-                case 3:
-                    StartCoroutine(IE_ShowText("자네 물건을 살 생각은 있는거겠지?"));
-                    break;
-                case 4:
-                    StartCoroutine(IE_ShowText("설마 고양이를 설치하는 가격이랑 착각하는건 아니겠지?"));
-                    break;
-            }
-
+            int randomIndex = Random.Range(0, cantBuy.dialogues.Count);
+            StartCoroutine(IE_ShowText(cantBuy.dialogues[randomIndex]));
             // TODO : 구매 불가 사운드
         }
 
@@ -118,7 +94,8 @@ public class StoreManager : MonoBehaviour
                 button.gameObject.SetActive(false);
             }
 
-            StartCoroutine(IE_ShowText("더이상은 고양이가 없네 이거 참 멸종이라고!"));
+            int randomIndex = Random.Range(0, empty.dialogues.Count);
+            StartCoroutine(IE_ShowText(empty.dialogues[randomIndex]));
         }
 
     }

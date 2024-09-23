@@ -28,12 +28,7 @@ public class GameStageManager : MonoBehaviour
     }
     void Start()
     {
-        gameManager = GameManager.instance;
-        gameManager.maxHp = 10;
-        gameManager.hp = 10;
-        gameManager.playerData.inGameMoney = 80;
-        gameManager.inGameMonyTimer.Reset();
-        gameManager.gameSpeed = CatBoxUtils.Enums.GameSpeed.Default;
+        GameSetting();
 
         clearButton.onClick.AddListener(() => SceneManager.LoadScene("StageSelectScene"));
         resetButton.onClick.AddListener(() => SceneManager.LoadScene(SceneManager.GetActiveScene().name));
@@ -50,6 +45,16 @@ public class GameStageManager : MonoBehaviour
         }
         UpdateInGameMoney();
         UpdateHealth();
+    }
+    private void GameSetting()
+    {
+        gameManager = GameManager.instance;
+        gameManager.maxHp = 10;
+        gameManager.hp = 10;
+        gameManager.playerData.inGameMoney = 80;
+        gameManager.inGameMonyTimer.Reset();
+        gameManager.gameSpeed = CatBoxUtils.Enums.GameSpeed.Default;
+        gameManager.gameState = CatBoxUtils.Enums.GameState.GAMEPLAY;
     }
     private void UpdateInGameMoney()
     {

@@ -18,9 +18,18 @@ public class PlayerData
     public List<TowerObject> myTowersIUse = new List<TowerObject>();    // 내가 사용하는 타워들
     public int Reroll;                  // 상점 초기화 기회
 }
+[System.Serializable]
+public class LevelData
+{
+    public int level;
+    public int index;
+    public string sceneName;
+    public int tryCount;
+    public int clearCount;
+}
 public class GameManager : MonoBehaviour
 {
-    public Enums.GameState gameState = Enums.GameState.MAINORSHOP;       // 게임의 상태
+    public Enums.GameState gameState = Enums.GameState.MAIN;       // 게임의 상태
     public Enums.GameSpeed gameSpeed = Enums.GameSpeed.Default;     // 게임의 속도
 
     public PlayerData playerData = new PlayerData { Money = 0, inGameMoney = 0, Reroll = 1 };   // 플레이어
@@ -58,6 +67,13 @@ public class GameManager : MonoBehaviour
         {
             Destroy(this);
             return;
+        }
+    }
+    private void Start()
+    {
+        if(gameState == Enums.GameState.MAIN)
+        {
+
         }
     }
 

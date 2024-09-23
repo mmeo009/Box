@@ -6,7 +6,7 @@ using TMPro;
 using UnityEngine.UI;
 public class TowerButton : MonoBehaviour
 {
-    public Enums.TowerButtonType towerButtonType;
+    public Enums.ButtonType towerButtonType;
     public TowerObject towerObject;
     public Button button;
     public TMP_Text[] texts;
@@ -24,7 +24,7 @@ public class TowerButton : MonoBehaviour
             textDictionary.Add(text.gameObject.name, text);
         }
 
-        if(towerButtonType == Enums.TowerButtonType.InGame)
+        if(towerButtonType == Enums.ButtonType.TOWER_INGAME)
         {
             button.onClick.AddListener(() => GameManager.instance.CreateTower(towerObject, Vector3.zero));
         }
@@ -39,7 +39,7 @@ public class TowerButton : MonoBehaviour
             return;
         }
 
-        if(towerButtonType == Enums.TowerButtonType.InGame)
+        if(towerButtonType == Enums.ButtonType.TOWER_INGAME)
         {
             button.onClick.AddListener(() => GameManager.instance.CreateTower(towerObject, Vector3.zero));
             textDictionary["Cost_Text"].text = towerObject.costInGame.ToString();

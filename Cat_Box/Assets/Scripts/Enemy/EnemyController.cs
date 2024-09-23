@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using CatBoxUtils;
+using Unity.VisualScripting;
 
 public class EnemyController : MonoBehaviour
 {
@@ -18,6 +19,13 @@ public class EnemyController : MonoBehaviour
 
     public List<Transform> wayPoints;                   // 목적지들
     public int nowWayIndex = 0;                         // 지금 가고 있는 곳 인덱스
+    private void Start()
+    {
+        if(!TryGetComponent<Collider>(out var collider))
+        {
+            gameObject.AddComponent<BoxCollider>();
+        }
+    }
     private void Update()
     {
         if(moveState == Enums.MoveState.DEFAULT)        // 상태가 기본 상태일 경우
