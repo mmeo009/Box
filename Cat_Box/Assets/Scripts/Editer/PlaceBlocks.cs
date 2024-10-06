@@ -100,6 +100,15 @@ public class PlaceBlocks : EditorWindow
         from = Vector3Int.zero;
         to = Vector3Int.zero;
     }
+    private void OnEnable()
+    {
+        SceneView.duringSceneGui += OnSceneGUI;
+    }
+
+    private void OnDisable()
+    {
+        SceneView.duringSceneGui -= OnSceneGUI;
+    }
 
     private void OnGUI()
     {
@@ -160,6 +169,23 @@ public class PlaceBlocks : EditorWindow
 
         GUILayout.EndVertical();
     }
+    public void OnSceneGUI(SceneView sceneView)
+    {
+        if(positionToPlace != null && !isFill)
+        {
+            Handles.color = Color.green;
 
+            Handles.DrawWireCube(new Vector3(positionToPlace.x + 0.5f, positionToPlace.y - 1, positionToPlace.z + 0.5f), Vector3.one);
+        }
+        else if(from != null && to != null)
+        {
+            Vector3 average = (from + to) / 2;
+            float width = Mathf.Abs(from.x - to.x + 1);
+            float height = Mathf.Abs(from.y - to.y + 1);
+            float depth = Mathf.Abs(from.z - to.z + 1);
+            Handles.color = Color.blue;
 
+            Handles.DrawWireCube(new Vector3(average.x + 0.5f, average.y - 1, average.z + 0.5f), new Vector3(width, height, depth));
+        }
+    }
 }
